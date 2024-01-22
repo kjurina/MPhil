@@ -1,0 +1,33 @@
+Practical 6 - Solutions/Comments
+
+1) The macro (ought to) make debugging slightly easier, in that it displays
+the line and file where the error occured, rather than just the test that
+failed (as assert() does).
+
+As an improvement, it could also force the program to exit immediately, using exit(1);
+
+The result of running the preprocessor is given in assert.preproc.
+The contents of this file are compiler (and version) dependent. Yours may be different.
+
+1.1) More Macros:
+1) This will probably fall foul of operator precedence again. Use (1 << i)
+
+2) Extra evaluation will probably occur, e.g. MIN(x++, y++) or MIN(f(p), f(g))
+where f is computationally expensive or has side-effects.
+Try int x=5, y=10; std::cout << MIN(x++, y++) << std::endl; std::cout << x << std::endl;
+
+3) Operator precedence again; try DISPLAY(1 << i) to print "2^i".
+
+4) Multiple evaluation; also this will cause errors where the function fabs()
+   is defined and the macro tries to expand that.
+
+5) This just defines three functions that determine the minimum of three numbers
+   of some type. There's nothing particularly wrong with this, but there are far
+   better ways of doing this in C++. See lectures on templates.
+
+2) The files MyFunc.H, MyFunc.C, Euler.H, Euler.C, Main.C form a complete program.
+Run the script compile.sh to compile these to produce a final executable (assumes g++ is your compiler).
+
+Extension (function pointer):
+The files MyFunc_Ptr.H, MyFunc_Ptr.C, Euler_Ptr.H, Euler_Ptr.C, Main_Ptr.C form a complete program.
+Run the script compile_ptr.sh to compile these to produce a final executable (assumes g++ is your compiler).

@@ -1,0 +1,10 @@
+Practical 7 Solutions/Comments
+
+1) The year should be an int. The day and month should be unsigned ints
+   The daysInMonth could be put into the Date class as a static member or just
+   left as a global variable.
+
+2) For leap-years, implement daysInMonth as a private function that just uses an
+   array as before for all months except February.
+   Recall that 1900 was not a leap-year, but 2000 was.
+

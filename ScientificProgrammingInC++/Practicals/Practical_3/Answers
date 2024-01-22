@@ -1,0 +1,13 @@
+To get the exact solution to the ODE, we do the following:
+
+dy/dt = sqrt(y)
+Divide by sqrt(y): 1/sqrt(y) dy = dt
+Integrate: 2*sqrt(y) = t + c
+Solve for y: y = (t/2 + s)^2
+(change integration constant from c to s)
+
+Substitute y=1, t=0 => s=1
+
+So y=(1 + t/2)^2
+y(10) = (1+5)^2 = 36
+

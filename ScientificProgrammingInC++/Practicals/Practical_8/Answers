@@ -1,0 +1,87 @@
+LSC group class structure:
+
+You should have everything derived from a single Researcher class:
+
+class Researcher{
+public:
+  std::string name()const;
+  // A researcher does not have a title as such, but all researchers must have a title.
+  virtual std::string title()const = 0;
+private:
+  std::string m_name;
+};
+
+// One way of proceeding is to then split between students and non-students:
+
+class Student : public Researcher{
+public:
+  int lectureHoursTakenPerWeek()const;
+  Date submissionDeadline()const;  
+  // Note: A student does not have a title as such either, so we do not implement the title() function here.
+protected:
+  // The number of lecture hours can be changed by/available to both MPhilStudent and PhdStudent
+  int m_lectureHours;
+};
+
+class MPhilStudent : public Student{
+public:
+  // This implements the title() function from Researcher.
+  virtual std::string title()const;
+};
+
+// Define the function to return a particular label for the MPhil Student.
+const MPhilStudent::title()const{
+  return "MPhil Student";
+}
+
+class PhdStudent : public Student{
+public:
+  virtual std::string title()const;  
+};
+
+const PhdStudent::title()const{
+  return "PhD Student";
+}
+
+// All Non-students are researchers, and give lectures.
+class NonStudent : public Researcher{
+public:
+  virtual int lectureHoursGivenPerWeek()const;
+protected:
+  // Protected so that both the PostDoc and HeadOfGroup classes can access/change the value.
+  int hoursPerWeek;
+};
+
+int NonStudent::lectureHoursGivenPerWeek()const{
+  return hoursPerWeek;
+}
+
+class PostDoc : public NonStudent{
+public:
+  virtual std::string title()const;
+};
+
+std::string PostDoc::title()const{
+  return "Post Doc.";
+}
+
+class HeadOfGroup : public NonStudent{
+public:
+  virtual std::string title()const;
+};
+
+std::string HeadOfGroup::title()const{
+  return "Head Of Group";
+}
+
+More class structure:
+
+This is a trick question. It should become obvious to you
+that there is no consistent way to define virtual functions that apply
+to both a Circle *and* an Ellipse.
+For example, Ellipse::radius() doesn't make any sense; an ellipse does
+not have a unique radius. Also, Circle::setAxes(a,b) doesn't make sense
+because a circle only has one parameter.
+
+See https://isocpp.org/wiki/faq/proper-inheritance#circle-ellipse
+for a fairly in-depth (if exasperated) explanation as to why.

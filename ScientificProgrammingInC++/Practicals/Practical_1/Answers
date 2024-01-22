@@ -1,0 +1,31 @@
+Practical 1 - Solutions/Comments
+
+1) This should be straightforward.
+
+2.1)
+
+Recall that the result of signed integer overflow in C++ is undefined.
+
+When running with -O2 optimization, the outer loop terminates after a single iteration (for gcc-4.8 and later).
+
+In this case, the optimizer has (probably) decided to replace the i loop counter by something
+apparently equivalent using s instead. However, because s overflows during the loop,
+its behaviour is not what the optimizer assumed (and the optimizer's assumtpion would have been valid
+if we had not invoked undefined behaviour by overlowing s).
+
+Further exercises:
+Compile to assembler (-s compile switch), and see what operations are being carried out and why we have an infinite loop.
+Experiment with other compilers.
+
+2.2)
+With no optimization, gcc (on all versions >= 4.4) converts 10^34 into -(2^31) when converting
+to a 32-bit signed integer. With optimization, it is converted to 2^31-1.
+Again, this is due to undefined behaviour.
+
+3)
+Most modern compilers will give that (-5)/(-2) = 2.
+Since optimization does not affect the answer, if this behaviour were
+important, then you could check at run-time whether round-up or round-down
+were enabled, and adjust accordingly.
+(More advanced users would check using configure and implement behaviour depending
+on a compile-time directive.)
